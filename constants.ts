@@ -32,4 +32,16 @@ export const ORGANIZATIONS: Organization[] = [
     description: "A vibrant arts organization offering exhibitions, classes, and events that inspire and educate the community.",
     logoUrl: 'https://picsum.photos/seed/ral/200/200',
   },
+  {
+    id: 'southern-delaware-chorale',
+    name: "Southern Delaware Chorale",
+    description: "A premier vocal ensemble performing a diverse repertoire of choral music for the community.",
+    logoUrl: 'https://picsum.photos/seed/sdc/200/200',
+  },
+  {
+    id: 'sodelo',
+    name: "SODELO (Southern Delaware Orchestra)",
+    description: "Bringing orchestral music to Southern Delaware through professional performances and educational outreach.",
+    logoUrl: 'https://picsum.photos/seed/sodelo/200/200',
+  },
 ];
