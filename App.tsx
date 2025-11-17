@@ -13,6 +13,8 @@ const App: React.FC = () => {
   const [selections, setSelections] = useState<Selections>(
     ORGANIZATIONS.reduce((acc, org) => ({ ...acc, [org.id]: false }), {})
   );
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -25,6 +27,14 @@ const App: React.FC = () => {
     e.preventDefault();
     setError(null);
 
+    if (!firstName.trim()) {
+      setError('Please enter your first name.');
+      return;
+    }
+    if (!lastName.trim()) {
+      setError('Please enter your last name.');
+      return;
+    }
     if (!email) {
       setError('Please enter your email address.');
       return;
@@ -46,6 +56,8 @@ const App: React.FC = () => {
     
     // Simulate API call
     console.log('Submitting data:', {
+      firstName,
+      lastName,
       email,
       subscriptions: selectedOrgs,
     });
@@ -57,6 +69,8 @@ const App: React.FC = () => {
   
   const handleReset = () => {
     setSelections(ORGANIZATIONS.reduce((acc, org) => ({ ...acc, [org.id]: false }), {}));
+    setFirstName('');
+    setLastName('');
     setEmail('');
     setFormState('idle');
     setError(null);
@@ -67,6 +81,7 @@ const App: React.FC = () => {
   if (formState === 'success') {
     return (
         <SuccessMessage 
+          firstName={firstName}
           email={email}
           organizations={selectedOrganizations}
           onReset={handleReset}
@@ -97,6 +112,10 @@ const App: React.FC = () => {
           </div>
 
           <EmailForm
+            firstName={firstName}
+            setFirstName={setFirstName}
+            lastName={lastName}
+            setLastName={setLastName}
             email={email}
             setEmail={setEmail}
             isSubmitting={formState === 'submitting'}

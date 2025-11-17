@@ -2,18 +2,56 @@
 import React from 'react';
 import { MailIcon } from './icons/MailIcon';
 import { ArrowRightIcon } from './icons/ArrowRightIcon';
+import { UserIcon } from './icons/UserIcon';
 
 interface EmailFormProps {
+  firstName: string;
+  setFirstName: (name: string) => void;
+  lastName: string;
+  setLastName: (name: string) => void;
   email: string;
   setEmail: (email: string) => void;
   isSubmitting: boolean;
   error: string | null;
 }
 
-const EmailForm: React.FC<EmailFormProps> = ({ email, setEmail, isSubmitting, error }) => {
+const EmailForm: React.FC<EmailFormProps> = ({
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  email,
+  setEmail,
+  isSubmitting,
+  error,
+}) => {
   return (
     <div className="mt-10 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Complete Your Subscription</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div className="relative">
+            <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+              aria-label="First Name"
+            />
+          </div>
+          <div className="relative">
+            <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+              aria-label="Last Name"
+            />
+          </div>
+        </div>
         <div className="relative">
           <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
           <input

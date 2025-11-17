@@ -4,21 +4,22 @@ import type { Organization } from '../types';
 import { CheckCircleIcon } from './icons/CheckCircleIcon';
 
 interface SuccessMessageProps {
+  firstName: string;
   email: string;
   organizations: Organization[];
   onReset: () => void;
 }
 
-const SuccessMessage: React.FC<SuccessMessageProps> = ({ email, organizations, onReset }) => {
+const SuccessMessage: React.FC<SuccessMessageProps> = ({ firstName, email, organizations, onReset }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
       <div className="max-w-md w-full text-center bg-white p-8 rounded-xl shadow-lg border border-gray-200">
         <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
             <CheckCircleIcon className="h-10 w-10 text-green-600" />
         </div>
-        <h2 className="mt-6 text-3xl font-bold text-gray-900">Subscription Confirmed!</h2>
+        <h2 className="mt-6 text-3xl font-bold text-gray-900">Thank you, {firstName}!</h2>
         <p className="mt-2 text-md text-gray-600">
-          Thank you! A confirmation has been sent to <span className="font-semibold text-teal-700">{email}</span>.
+          Your subscription is confirmed. A confirmation email has been sent to <span className="font-semibold text-teal-700">{email}</span>.
         </p>
         <div className="mt-6 text-left bg-gray-50 p-4 rounded-lg border border-gray-200">
           <h3 className="font-semibold text-gray-800">You have subscribed to:</h3>
