@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { ORGANIZATIONS } from './constants';
 import type { Organization } from './types';
 import Header from './components/Header';
@@ -22,6 +22,19 @@ const App: React.FC = () => {
   const handleSelectionChange = useCallback((orgId: string, isSelected: boolean) => {
     setSelections(prev => ({ ...prev, [orgId]: isSelected }));
   }, []);
+
+  const allSelected = useMemo(
+    () => ORGANIZATIONS.every(org => selections[org.id]),
+    [selections]
+  );
+
+  const handleToggleAll = useCallback(() => {
+    const newSelections = ORGANIZATIONS.reduce(
+      (acc, org) => ({ ...acc, [org.id]: !allSelected }),
+      {}
+    );
+    setSelections(newSelections);
+  }, [allSelected]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,7 +108,16 @@ const App: React.FC = () => {
         <Header />
         <form onSubmit={handleSubmit}>
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-700 mb-2">Opt-In Ballot</h2>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+              <h2 className="text-2xl font-semibold text-gray-700">Opt-In Ballot</h2>
+              <button
+                type="button"
+                onClick={handleToggleAll}
+                className="mt-2 sm:mt-0 text-sm text-teal-600 hover:text-teal-700 font-medium transition-colors focus:outline-none focus:underline"
+              >
+                {allSelected ? 'Deselect All' : 'Select All'}
+              </button>
+            </div>
             <p className="text-gray-600 mb-8">
               Please select the organizations from which you would like to receive communications.
             </p>
